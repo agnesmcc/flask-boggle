@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<table id="board">
+    {% for row in board %}
+    <tr>
+        {% for letter in row %}
+        <td>{{letter}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
