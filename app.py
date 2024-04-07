@@ -16,6 +16,12 @@ def home():
 
 @app.route('/submit', methods=["POST"])
 def submit():
-    print(request.args.get('guess', ''))
-    response = {'result': 'ok'}
+    guess = request.args.get('guess', '')
+    print(guess)
+
+    board = session['board']
+    is_valid = boggle_game.check_valid_word(board, guess)
+
+    response = {'result': is_valid}
+    print(response)
     return jsonify(response)
