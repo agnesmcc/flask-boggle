@@ -1,5 +1,5 @@
 from boggle import Boggle
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, request, jsonify
 
 boggle_game = Boggle()
 
@@ -13,3 +13,9 @@ def home():
     session['board'] = board
     print('SESSION:', session['board'])
     return render_template('home.html', board=board)
+
+@app.route('/submit', methods=["POST"])
+def submit():
+    print(request.args.get('guess', ''))
+    response = {'result': 'ok'}
+    return jsonify(response)

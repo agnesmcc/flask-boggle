@@ -1,6 +1,7 @@
-function submit_guess(guess){
+async function submit_guess(guess){
     console.debug('guess submitted!');
     console.debug(guess);
+    await axios.post(`/submit?guess=${guess}`)
     return null;
 }
 
