@@ -10,10 +10,14 @@
     {% endfor %}
 </table>
 
+<p id="countdown"></p>
+
 <form id="guess-form">
     <label id="guess-label" for="guess">Guess a word:</label>
     <input type="text" id="guess-input" name="guess">
 </form>
 
 <p id="result"></p>
+
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
 {% endblock %}
