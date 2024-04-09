@@ -12,6 +12,7 @@ def home():
     print('BOARD:', board)
     session['board'] = board
     print('SESSION:', session['board'])
+    session['score'] = 0
     return render_template('home.html', board=board)
 
 @app.route('/submit', methods=["POST"])
@@ -22,6 +23,11 @@ def submit():
     board = session['board']
     is_valid = boggle_game.check_valid_word(board, guess)
 
-    response = {'result': is_valid}
+    if is_valid == 'ok':
+        score = session.get('score')
+        session['score'] = score + len(guess)
+        print(session['score'])
+
+    response = {'result': is_valid, 'score': session['score']}
     print(response)
     return jsonify(response)
