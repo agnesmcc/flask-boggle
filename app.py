@@ -13,7 +13,14 @@ def home():
     session['board'] = board
     print('SESSION:', session['board'])
     session['score'] = 0
-    return render_template('home.html', board=board)
+    if 'high_score' not in session:
+        session['high_score'] = 0
+    if 'num_played' not in session:
+        session['num_played'] = 0
+    return render_template('home.html',
+        board=board,
+        high_score=session['high_score'],
+        times_played=session['num_played'])
 
 @app.route('/submit', methods=["POST"])
 def submit():
@@ -31,3 +38,13 @@ def submit():
     response = {'result': is_valid, 'score': session['score']}
     print(response)
     return jsonify(response)
+
+@app.route('/score', methods=["POST"])
+def score():
+    score = int(request.json.get('score', ''))
+    if score > session['high_score']:
+        session['high_score'] = score
+    session['num_played'] = session['num_played'] + 1
+    print('submitted score: %s, high score: %s, times played: %s' %
+        (score, session['high_score'], session['num_played']))
+    return jsonify('')

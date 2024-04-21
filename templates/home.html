@@ -13,6 +13,8 @@
 <p id="countdown"></p>
 
 <p>Your score: <span id="player-score">0</span></p>
+<p>Your high score: <span id="player-high-score">{{high_score}}</span></p>
+<p>Number of times played: <span id="player-num-played">{{times_played}}</span></p>
 
 <form id="guess-form">
     <label id="guess-label" for="guess">Guess a word:</label>
@@ -21,5 +23,7 @@
 
 <p id="result"></p>
 
+<script src="{{ url_for('static', filename='js/form.js') }}"></script>
 <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
 {% endblock %}

@@ -18,6 +18,7 @@ function countdown() {
         clearInterval(timer);
         // console.log("Time's up!");
         $("#countdown").text("Time's up!");
+        updateScore();
         gameExpired = true;
     }
 }
