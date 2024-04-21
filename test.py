@@ -47,3 +47,17 @@ class FlaskTests(TestCase):
             self.assertEqual('ok', resp_json['result'])
             self.assertEqual(1, resp_json['score'])
 
+    def test_score(self):
+        with app.test_client() as client:
+            with client.session_transaction() as change_session:
+                change_session['high_score'] = 1
+                change_session['num_played'] = 5
+
+            resp = client.post("/score", json={'score': 0})
+            self.assertEqual(session['high_score'], 1)
+            self.assertEqual(session['num_played'], 6)
+
+            resp = client.post("/score", json={'score': 6})
+            self.assertEqual(session['high_score'], 6)
+            self.assertEqual(session['num_played'], 7)
+
