@@ -8,6 +8,11 @@ app.config['SECRET_KEY'] = "secret"
 
 @app.route('/')
 def home():
+    '''
+    home is responsible for initializing the board and other
+    session variables for the player. It then uses those variables
+    to render the game.
+    '''
     board = boggle_game.make_board()
     print('BOARD:', board)
     session['board'] = board
@@ -24,6 +29,12 @@ def home():
 
 @app.route('/submit', methods=["POST"])
 def submit():
+    '''
+    submit receives a guess that the user entered on the frontend. It checks
+    if the word guessed is on the board. If it is on the board it updates the
+    player's score. It returns both the result and new score so that the
+    frontend can be updated.
+    '''
     guess = request.args.get('guess', '')
     print(guess)
 
@@ -41,6 +52,11 @@ def submit():
 
 @app.route('/score', methods=["POST"])
 def score():
+    '''
+    score receives the score stored on the frontend and updates
+    the players high score if the new score is higher. It also udpates
+    the number of games the player has played.
+    '''
     score = int(request.json.get('score', ''))
     if score > session['high_score']:
         session['high_score'] = score
